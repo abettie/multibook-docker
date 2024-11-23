@@ -1,14 +1,14 @@
 services:
-  nginx:
+  nginx_backend:
     image: nginx:1.26.2
     ports:
       - 8000:80
     volumes:
-      - ./src:/var/www/html
+      - ./src_backend:/var/www/html
       - ./docker/nginx:/etc/nginx/conf.d
     depends_on:
-      - app
-  app:
+      - app_backend
+  app_backend:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - ./src:/var/www/html
+      - ./src_backend:/var/www/html
     depends_on:
       - mysql
   mysql:

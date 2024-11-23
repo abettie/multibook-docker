@@ -1,0 +1,3 @@
+[submodule "src_backend"]
+	path = src_backend
+	url = https://github.com/abettie/multibook-backend.git
