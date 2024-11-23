@@ -1,0 +1,16 @@
+services:
+  nginx:
+    image: nginx:1.26.2
+    ports:
+      - 8000:80
+    volumes:
+      - ./src:/var/www/html
+      - ./docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - app
+  app:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/var/www/html
