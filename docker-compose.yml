@@ -29,7 +29,7 @@ services:
       - PMA_USER=${MYSQL_USER}
       - PMA_PASSWORD=${MYSQL_PASSWORD}
     ports:
-      - 7000:80
+      - 8001:80
     depends_on:
       - mysql
   mysql:
@@ -45,5 +45,13 @@ services:
       - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
+  api_doc:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8002:8080
+    environment:
+      - SWAGGER_JSON=/openapi.yml
+    volumes:
+      - ./api-docs/openapi.yml:/openapi.yml
 volumes:
   mysqldata:
