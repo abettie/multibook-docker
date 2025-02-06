@@ -7,6 +7,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     zip \
     unzip \
-    && docker-php-ext-install pdo_mysql
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-jpeg --with-freetype \
+    && docker-php-ext-install gd pdo_mysql
 
 WORKDIR /var/www
