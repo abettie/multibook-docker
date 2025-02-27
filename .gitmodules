@@ -1,3 +1,6 @@
 [submodule "src_backend"]
 	path = src_backend
 	url = https://github.com/abettie/multibook-backend.git
+[submodule "src_frontend"]
+	path = src_frontend
+	url = git@github.com:abettie/multibook-frontend.git
