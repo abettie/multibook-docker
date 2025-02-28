@@ -4,8 +4,11 @@ services:
     ports:
       - 8000:80
     volumes:
-      - ./src_backend:/var/www/html
+      - ./src_frontend:/var/www/html/frontend
+      - ./src_backend:/var/www/html/backend
       - ./docker/nginx:/etc/nginx/conf.d
+    extra_hosts:
+      - host.docker.internal:host-gateway
     depends_on:
       - app_backend
   app_backend:
@@ -18,7 +21,7 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
-      - ./src_backend:/var/www/html
+      - ./src_backend:/var/www/html/backend
     depends_on:
       - mysql
   phpmyadmin:
