@@ -1,5 +1,5 @@
 services:
-  nginx_backend:
+  nginx:
     image: nginx:1.26.2
     ports:
       - 8000:80
@@ -10,8 +10,8 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     depends_on:
-      - app_backend
-  app_backend:
+      - php
+  php:
     build:
       context: ./docker/php
       dockerfile: Dockerfile
@@ -48,7 +48,7 @@ services:
       - ./docker/mysql/initdb.d:/docker-entrypoint-initdb.d
     ports:
       - 3306:3306
-  api_doc:
+  swagger:
     image: swaggerapi/swagger-ui
     ports:
       - 8002:8080
