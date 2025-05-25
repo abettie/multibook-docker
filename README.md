@@ -15,6 +15,57 @@ graph TD
     phpmyadmin -->|uses| mysql
 ```
 
+## サービス関連図
+
+```mermaid
+graph TD
+  %% --- Host ------------------------------------------------------------------
+  subgraph クライアント
+    Host[ポートフォワード]
+  end
+
+  %% --- Containers & Services -------------------------------------------------
+  subgraph nginxコンテナ
+    style nginxコンテナ fill:#f5f5f5,stroke:#999,stroke-width:1px
+    Nginx[Nginx<br/>80]
+    Laravel[Laravel<br/>3000]
+  end
+
+  subgraph phpコンテナ
+    style phpコンテナ fill:#f5f5f5,stroke:#999,stroke-width:1px
+    PHPFPM[php-fpm<br/>9000]
+  end
+
+  subgraph mysqlコンテナ
+    style mysqlコンテナ fill:#f5f5f5,stroke:#999,stroke-width:1px
+    MySQL[MySQL Server<br/>3306]
+  end
+
+  subgraph swaggerコンテナ
+    style swaggerコンテナ fill:#f5f5f5,stroke:#999,stroke-width:1px
+    Swagger[Swagger<br/>8080]
+  end
+
+  subgraph phpmyadminコンテナ
+    style phpmyadminコンテナ fill:#f5f5f5,stroke:#999,stroke-width:1px
+    PMA[phpMyAdmin<br/>80]
+  end
+
+  %% --- Port Forwarding -------------------------------------------------------
+  Host -- 8000 --> Nginx
+  Host -- 8001 --> PMA
+  Host -- 8002 --> Swagger
+
+  %% --- Internal Routing ------------------------------------------------------
+  Nginx -- "/api/* (reverse proxy)" --> Laravel
+  Nginx -- "*.php$ (fastcgi_pass)" --> PHPFPM
+
+  %% --- Typical DB Access (optional) -----------------------------------------
+  PHPFPM
+   -- "DB 接続" --> MySQL
+  PMA -- "DB 接続" --> MySQL
+```
+
 ## コマンド
 ### 起動
 ```
@@ -24,9 +75,9 @@ docker compose up -d
 ```
 docker compose down
 ```
-### 起動（ビルド込み）
+### 再起動（ビルドとか色々リセット込み）
 ```
-docker compose up -d --build --remove-orphans
+docker compose down && docker compose up -d --build --remove-orphans
 ```
 ### コンテナにログイン
 (例)
@@ -54,3 +105,11 @@ docker compose exec -w=/var/www/html/backend php php artisan test tests/Feature/
 ```
 docker compose exec -w=/var/www/html/backend php php artisan test tests/Feature/ImageTest.php --filter update --testdox
 ```
+
+## URL
+### React
+http://localhost:8000/
+### phpMyAdmin
+http://localhost:8001/
+### Swagger
+http://localhost:8002/
