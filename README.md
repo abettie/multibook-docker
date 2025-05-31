@@ -106,6 +106,11 @@ docker compose exec -w=/var/www/html/backend php php artisan test tests/Feature/
 docker compose exec -w=/var/www/html/backend php php artisan test tests/Feature/ImageTest.php --filter update --testdox
 ```
 
+### Swagger yamlファイル作成
+```
+cd $(git rev-parse --show-toplevel)/src_backend && ./vendor/bin/openapi app/Http/ -o ../api-docs/openapi.yml
+```
+
 ## URL
 ### React
 http://localhost:8000/
