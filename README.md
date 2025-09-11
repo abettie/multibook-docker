@@ -68,6 +68,11 @@ graph TD
 ```
 
 ## コマンド
+### gitサブモジュールをclone
+```
+git submodule update --init --recursive
+```
+
 ### 起動
 ```
 docker compose up -d
