@@ -117,6 +117,14 @@ docker compose exec nginx ls -l /var/www/html/backend/public
 ```
 docker compose down && docker compose up -d --build --remove-orphans && docker compose logs -f
 ```
+### nginx起動ログ、アクセスログの確認
+```
+docker compose logs -f nginx
+```
+### 500エラーのログ等の確認
+```
+docker compose logs -f php
+```
 ### Laravel単体テスト実行
 ```
 docker compose exec -w=/var/www/html/backend php php artisan test --testdox
