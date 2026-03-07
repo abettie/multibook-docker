@@ -82,6 +82,7 @@ cd $(git rev-parse --show-toplevel)/src_backend
 composer install
 chmod -R 777 storage
 chmod -R 777 bootstrap/cache
+chmod -R 777 public/img
 ```
 
 #### フロントエンド（src_frontend）
