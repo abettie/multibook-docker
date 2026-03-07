@@ -143,6 +143,12 @@ docker compose exec -w=/var/www/html/backend php php artisan test tests/Feature/
 cd $(git rev-parse --show-toplevel)/src_backend && ./vendor/bin/openapi app/Http/ -o ../api-docs/openapi.yml
 ```
 
+### サブモジュール更新のコミット
+```
+git add src_backend && git commit -m 'update submodule' && git push origin master
+git add src_frontend && git commit -m 'update submodule' && git push origin master
+```
+
 ## URL
 ### React
 http://localhost:8000/
