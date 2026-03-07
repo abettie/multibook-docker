@@ -152,6 +152,8 @@ cd $(git rev-parse --show-toplevel)/src_backend && ./vendor/bin/openapi app/Http
 ### サブモジュール更新のコミット
 ```
 cd $(git rev-parse --show-toplevel) && git add src_backend && git commit -m 'update submodule' && git push origin master
+```
+```
 cd $(git rev-parse --show-toplevel) && git add src_frontend && git commit -m 'update submodule' && git push origin master
 ```
 
