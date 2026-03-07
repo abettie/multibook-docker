@@ -115,7 +115,7 @@ docker compose exec nginx ls -l /var/www/html/backend/public
 ```
 ### コンテナ起動時のログ調査
 ```
-docker compose down && docker compose up -d --build --remove-orphans && docker compose logs -f
+docker compose down -v && docker compose up -d && docker compose logs -f
 ```
 ### nginx起動ログ、アクセスログの確認
 ```
