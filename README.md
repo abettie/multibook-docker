@@ -78,7 +78,7 @@ Docker起動前に以下の作業が必要です。
 
 #### バックエンド（src_backend）
 ```
-cd src_backend
+cd $(git rev-parse --show-toplevel)/src_backend
 composer install
 chmod -R 777 storage
 chmod -R 777 bootstrap/cache
@@ -86,9 +86,14 @@ chmod -R 777 bootstrap/cache
 
 #### フロントエンド（src_frontend）
 ```
-cd src_frontend
+cd $(git rev-parse --show-toplevel)/src_frontend
 yarn install
 npm run build
+```
+
+#### DBマイグレーション
+```
+cd $(git rev-parse --show-toplevel) && docker compose exec -w=/var/www/html/backend php php artisan migrate
 ```
 
 ### 起動
@@ -145,8 +150,8 @@ cd $(git rev-parse --show-toplevel)/src_backend && ./vendor/bin/openapi app/Http
 
 ### サブモジュール更新のコミット
 ```
-git add src_backend && git commit -m 'update submodule' && git push origin master
-git add src_frontend && git commit -m 'update submodule' && git push origin master
+cd $(git rev-parse --show-toplevel) && git add src_backend && git commit -m 'update submodule' && git push origin master
+cd $(git rev-parse --show-toplevel) && git add src_frontend && git commit -m 'update submodule' && git push origin master
 ```
 
 ## URL
