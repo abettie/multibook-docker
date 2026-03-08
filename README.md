@@ -74,7 +74,6 @@ git submodule update --init --recursive
 ```
 
 ### 事前作業（初回のみ）
-Docker起動前に以下の作業が必要です。
 
 #### バックエンド（src_backend）
 ```
@@ -83,6 +82,12 @@ composer install
 chmod -R 777 storage
 chmod -R 777 bootstrap/cache
 chmod -R 777 public/img
+cp -ip .env.local .env
+```
+.envの中の下記パラメータ値を反映
+```
+GOOGLE_CLIENT_ID=xxxxxxxxxxxxx.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=xxxxxxxxxxxxx
 ```
 
 #### フロントエンド（src_frontend）
@@ -90,6 +95,11 @@ chmod -R 777 public/img
 cd $(git rev-parse --show-toplevel)/src_frontend
 yarn install
 npm run build
+```
+
+#### アプリケーションキーの生成
+```
+cd $(git rev-parse --show-toplevel) && docker compose exec -w=/var/www/html/backend php php artisan key:generate
 ```
 
 #### DBマイグレーション
